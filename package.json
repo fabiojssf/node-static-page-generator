@@ -28,7 +28,7 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "pre-commit": "npm test"
     }
   },
   "homepage": "https://github.com/Chalarangelo/node-static-page-generator#readme",
