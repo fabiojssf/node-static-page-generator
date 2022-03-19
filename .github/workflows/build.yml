@@ -35,7 +35,7 @@ jobs:
         run: npm ci
 
       - name: Generate Pages
-        run: npm run build-pagess
+        run: npm run build-pagesss
 
       - name: Zip build and code
         if: success()
