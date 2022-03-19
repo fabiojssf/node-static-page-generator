@@ -18,9 +18,9 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-            
+
       - name: Checkout
-        run: actions/checkout
+        run: actions/checkout@v1
 
       - name: Install node dependencs
         env:
