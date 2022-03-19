@@ -29,11 +29,11 @@ jobs:
 
       - name: Generate Pages
         run: npm run build-pages
-        
+
       - name: Send surge
         if: success()
         run: |
           npx surge --project ./build --domain static-page-project.surge.sh
         env:
           SURGE_EMAIL: ${{ secrets.SURGE_EMAIL }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }} 
