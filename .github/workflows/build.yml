@@ -37,6 +37,12 @@ jobs:
       - name: Generate Pages
         run: npm run build-pages
 
+      - name: Zip build and code
+        if: success()
+        run: |
+          zip -r build.zip ./build
+          zip -r code.zip -x ./build .
+
       - name: Send surge
         if: success()
         run: |
