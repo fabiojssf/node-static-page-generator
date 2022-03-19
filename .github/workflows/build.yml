@@ -28,8 +28,8 @@ jobs:
         run: npm ci
 
       - name: Generate Pages
-        run: npm run start
-
+        run: npm run build-pages
+        
       - name: Send surge
         if: success()
         run: |
