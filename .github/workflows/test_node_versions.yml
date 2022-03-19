@@ -1,0 +1,37 @@
+name: Build Project
+on:
+#  push:
+  repository_dispatch:
+
+jobs:
+  test-node-versions:
+    runs-on: ubuntu-latest
+    env:
+      SURGE_EMAIL: ${{ secrets.SURGE_EMAIL }}
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
+    strategy:
+      matrix:
+        node_version: [6, 8, 10, '12.x', '14.x', '16.x' ]
+
+    steps:
+      - name: Testing node versions
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Log node versions
+        run: node -v
+      - name: Checkout Project
+        uses: actions/checkout@v3
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-key: |
+            ${{ runner.os }}-node-
+      - name: Testing Project with node versions
+        run: |
+          npm ci
+        env:
+          CI: true

@@ -3,27 +3,34 @@ on:
   push:
 
 jobs:
-  publish-project-surge:
+  build:
     runs-on: ubuntu-latest
-    env:
-      SURGE_EMAIL: ${{ secrets.SURGE_EMAIL }}
-      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-
-    strategy:
-      matrix:
-        node_version: [6, 8, 10, '12.x', '14.x', '16.x' ]
-
     steps:
-      - name: Testing node versions
+      - name: Set node version 14
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node_version }}
-      - name: Log node versions
-        run: node -v
-      - name: Checkout Project
-        uses: actions/checkout@v3
-      - name: Testing Project with node versions
-        run: |
-          npm ci
+          node-version: '14.x'
+
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-key: |
+            ${{ runner.os }}-node-
+
+      - name: Install node dependencs
         env:
           CI: true
+        run: npm ci
+
+      - name: Generate Pages
+        run: npm run start
+
+      - name: Send surge
+        if: success()
+        run: |
+          npx surge --project ./build --domain static-page-project.surge.sh
+        env:
+          SURGE_EMAIL: ${{ secrets.SURGE_EMAIL }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
