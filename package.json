@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build-pages": "node ./build_scripts/builder.js",
-    "start": "concurrently --kill-others \"nodemon -e js,json,css,md -i build -x \\\"npm run build-pages\\\"\" \"live-server ./build\""
+    "start": "concurrently --kill-others \"nodemon -e js,json,css,md -i build -x \\\"npm run build-pages\\\"\" \"live-server ./build\"",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,11 @@
   "bugs": {
     "url": "https://github.com/Chalarangelo/node-static-page-generator/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
+  },
   "homepage": "https://github.com/Chalarangelo/node-static-page-generator#readme",
   "dependencies": {
     "concurrently": "^3.5.1",
@@ -34,6 +40,9 @@
     "nodemon": "^1.12.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "husky": "^7.0.4",
     "prettier": "2.6.0",
     "semantic-release": "^19.0.2"
   }

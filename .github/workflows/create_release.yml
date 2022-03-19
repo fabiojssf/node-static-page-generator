@@ -1,7 +1,7 @@
 name: Create a release
 on:
   pull_request:
-    branches: [master]
+    branches: ["develop"]
 
 jobs:
   create-a-release:
