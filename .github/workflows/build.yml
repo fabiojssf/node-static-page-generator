@@ -18,7 +18,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: ls
+      - run: |
+          ls
+          pwd
+          
       - name: Install node dependencs
         env:
           CI: true
