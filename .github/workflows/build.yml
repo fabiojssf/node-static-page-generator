@@ -36,4 +36,9 @@ jobs:
           npx surge --project ./build --domain static-page-project.surge.sh
         env:
           SURGE_EMAIL: ${{ secrets.SURGE_EMAIL }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }} 
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      - name: Create a release
+        if: success() && github.ref == 'refs/heads/master'
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

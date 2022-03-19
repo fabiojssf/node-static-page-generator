@@ -1,0 +1,13 @@
+name: Create a release
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  create-a-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release on Project
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
