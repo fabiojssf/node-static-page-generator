@@ -1,0 +1,29 @@
+name: Build Project
+on:
+  push:
+
+jobs:
+  publish-project-surge:
+    runs-on: ubuntu-latest
+    env:
+      SURGE_EMAIL: ${{ secrets.SURGE_EMAIL }}
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
+    strategy:
+      matrix:
+        node_version: [6, 8, 10, '12.x', '14.x', '16.x' ]
+
+    steps:
+      - name: Testing node versions
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Log node versions
+        run: node -v
+      - name: Checkout Project
+        uses: actions/checkout@v3
+      - name: Testing Project with node versions
+        run: |
+          npm ci
+        env:
+          CI: true

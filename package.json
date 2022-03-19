@@ -33,5 +33,7 @@
     "markdown-it": "^8.4.0",
     "nodemon": "^1.12.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "2.6.0"
+  }
 }
